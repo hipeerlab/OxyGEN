@@ -66,7 +66,8 @@ for i = 1:numel(h1a);
     
     ymin(i) = h1a(i);
     ymax(i) = h2a(i);
-    
+
+
     alphamin(i) = acos((h0 - h1a(i)) / l);
     alphamax(i) = acos((h0 - h2a(i)) / l);
     
