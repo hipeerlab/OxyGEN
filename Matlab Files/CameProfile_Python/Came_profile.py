@@ -38,6 +38,7 @@ ff2 = 50
 #####################################################
 # GENERATION OF THE CURVES AND THE CAMSHAFT
 
+# Generation of the geometry
 ymin = []
 ymax = []
 
@@ -54,39 +55,40 @@ xtan = []
 ytan = []
 
 xsup = []
+xinf = []
+
 ysup = []
+yinf = []
 
 xcam = []
 ycam = []
 
 l = math.sqrt(l0**2 + hb**2)
 
-"""
 for i in range(len(h1a)):    
     ymin.append(h1a[i])
     ymax.append(h2a[i])
     
-    alphamin[i] = math.acos((h0 - h1a[i]) / l)
-    alphamax[i] = math.acos((h0 - h2a[i]) / l)
+    alphamin.append(math.acos((h0 - h1a[i]) / l))
+    alphamax.append(math.acos((h0 - h2a[i]) / l))
 
-    xmin[i] = l*math.sin(alphamin[i])
-    xmax[i] = l*math.sin(alphamax[i])
+    xmin.append(l*math.sin(alphamin[i]))
+    xmax.append(l*math.sin(alphamax[i]))
 
-    d[i] = math.sqrt((xmin[i] - xmax[i]) ** 2 + (ymin[i] - ymax[i]) ** 2)
-    alphatan[i] = (alphamin[i] + alphamax[i]) / 2
+    d.append(math.sqrt((xmin[i] - xmax[i]) ** 2 + (ymin[i] - ymax[i]) ** 2))
+    alphatan.append((alphamin[i] + alphamax[i]) / 2)
 
-    xtan[i] = l*math.sin(alphatan[i])    
-    ytan[i] = h0 - l*math.cos(alphatan[i])
+    xtan.append(l*math.sin(alphatan[i]))
+    ytan.append(h0 - l*math.cos(alphatan[i]))
 
-    xsup[i] = xtan[i] + (d[i]/2)*math.cos(alphatan[i])
-    xinf[i] = xtan[i] - (d[i]/2)*math.cos(alphatan[i])
+    xsup.append(xtan[i] + (d[i]/2)*math.cos(alphatan[i]))
+    xinf.append(xtan[i] - (d[i]/2)*math.cos(alphatan[i]))
     
-    ysup[i] = ytan[i] + (d[i]/2)*math.sin(alphatan[i])
-    yinf[i] = ytan[i] - (d[i]/2)*math.sin(alphatan[i])
+    ysup.append(ytan[i] + (d[i]/2)*math.sin(alphatan[i]))
+    yinf.append(ytan[i] - (d[i]/2)*math.sin(alphatan[i]))
     
-    xcam[i] = xtan[i] + (d[i]/2 + rmin + br)*math.cos(alphatan[i])
-    ycam[i] = ytan[i] + (d[i]/2 + rmin + br)*math.sin(alphatan[i])
-    """
+    xcam.append(xtan[i] + (d[i]/2 + rmin + br)*math.cos(alphatan[i]))
+    ycam.append(ytan[i] + (d[i]/2 + rmin + br)*math.sin(alphatan[i]))
 
 
 dt = 0.01    # Time increment
@@ -108,7 +110,5 @@ for i in theta:
     psi2.append(1-psi1[-1])
 
 
-print(psi2)
-print(len(psi2))
 
 
