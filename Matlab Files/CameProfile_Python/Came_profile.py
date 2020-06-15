@@ -38,40 +38,77 @@ ff2 = 50
 #####################################################
 # GENERATION OF THE CURVES AND THE CAMSHAFT
 
+ymin = []
+ymax = []
+
+alphamin = []
+alphamax = []
+
+xmin = []
+xmax = []
+
+d = []
+alphatan = []
+
+xtan = []
+ytan = []
+
+xsup = []
+ysup = []
+
+xcam = []
+ycam = []
+
+l = math.sqrt(l0**2 + hb**2)
+
+"""
+for i in range(len(h1a)):    
+    ymin.append(h1a[i])
+    ymax.append(h2a[i])
+    
+    alphamin[i] = math.acos((h0 - h1a[i]) / l)
+    alphamax[i] = math.acos((h0 - h2a[i]) / l)
+
+    xmin[i] = l*math.sin(alphamin[i])
+    xmax[i] = l*math.sin(alphamax[i])
+
+    d[i] = math.sqrt((xmin[i] - xmax[i]) ** 2 + (ymin[i] - ymax[i]) ** 2)
+    alphatan[i] = (alphamin[i] + alphamax[i]) / 2
+
+    xtan[i] = l*math.sin(alphatan[i])    
+    ytan[i] = h0 - l*math.cos(alphatan[i])
+
+    xsup[i] = xtan[i] + (d[i]/2)*math.cos(alphatan[i])
+    xinf[i] = xtan[i] - (d[i]/2)*math.cos(alphatan[i])
+    
+    ysup[i] = ytan[i] + (d[i]/2)*math.sin(alphatan[i])
+    yinf[i] = ytan[i] - (d[i]/2)*math.sin(alphatan[i])
+    
+    xcam[i] = xtan[i] + (d[i]/2 + rmin + br)*math.cos(alphatan[i])
+    ycam[i] = ytan[i] + (d[i]/2 + rmin + br)*math.sin(alphatan[i])
+    """
+
+
+dt = 0.01    # Time increment
+theta = np.arange(0, 2 * np.pi, dt) # Time coordinate during cycle
  
-def geometry_generation(h1a, h2a, h0, hb):
+# Generation of the soft transition between inhale and exhale
+psi1 = []
+psi2 = []
+
+for i in theta:
     
-    l = math.sqrt(l0**2 + hb**2)
-
-    ymin = h1a
-    ymax = h2a
-
-    alphamin = math.acos((h0 - h1a) / l)
-    alphamax = math.acos((h0 - h2a) / l)
-
-    xmin = l*math.sin(alphamin)
-    xmax = l*math.sin(alphamax)
-
-    d = math.sqrt((xmin - xmax) ** 2 + (ymin - ymax) ** 2)
-    alphatan = (alphamin + alphamax) / 2
-
-    xtan = l*math.sin(alphatan)    
-    ytan = h0 - l*math.cos(alphatan)
-
-    xsup = xtan + (d/2)*math.cos(alphatan)
-    xinf = xtan - (d/2)*math.cos(alphatan)
+    if i < (lambda2-dpsi21/2)*2*math.pi:
+        psi1.append(0)
+    elif i < (lambda2+dpsi21/2)*2*math.pi:
+        psi1.append(0.5 + 0.5*math.cos((i-(lambda2+dpsi21/2)*2*math.pi)/(2*dpsi21)))
+    else:
+        psi1.append(1)
     
-    ysup = ytan + (d/2)*math.sin(alphatan)
-    yinf = ytan - (d/2)*math.sin(alphatan)
-    
-    xcam = xtan + (d/2 + rmin + br)*math.cos(alphatan)
-    ycam = ytan + (d/2 + rmin + br)*math.sin(alphatan)
-    
-    return [xtan, ytan]
+    psi2.append(1-psi1[-1])
 
-a = geometry_generation(h1a[1], h2a[1], h0, hb)
-print(a)
-print(type(a))
 
+print(psi2)
+print(len(psi2))
 
 
