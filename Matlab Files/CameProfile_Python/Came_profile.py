@@ -4,6 +4,7 @@ Code to determine the Came profile
 import numpy as np
 import matplotlib.pyplot as plt 
 import math
+from scipy.stats import gamma
 
 # GEOMETRICAL PARAMETERS 
 l0 = 27.5   # Length from the bearing to the hinge 
@@ -90,7 +91,6 @@ for i in range(len(h1a)):
     xcam.append(xtan[i] + (d[i]/2 + rmin + br)*math.cos(alphatan[i]))
     ycam.append(ytan[i] + (d[i]/2 + rmin + br)*math.sin(alphatan[i]))
 
-
 dt = 0.01    # Time increment
 theta = np.arange(0, 2 * np.pi, dt) # Time coordinate during cycle
  
@@ -109,6 +109,40 @@ for i in theta:
     
     psi2.append(1-psi1[-1])
 
+#############################################################
+# Generation of the complete breathing cycle rho(theta)
+
+rho = []
+rho1 = []
+rho2 = []
+rho1next = []
+rho2next = []
+
+rhomin = 1000
+rhomax = 0
+
+for i in range(len(theta)):
+
+    # Inhale curve 
+    rho1.append(ff1*gamma.pdf(theta[i], ga1, scale=gb1))
+    rho1next.append(ff1*gamma.pdf(theta[i]+2*math.pi, ga1, scale=gb1))
+
+    # Exhale curve
+    rho2.append(ff2*gamma.pdf(theta[i], ga2, scale=gb2))
+    rho2next.append(ff2*gamma.pdf(theta[i]+2*math.pi, ga2, scale=gb2))
+
+    rho.append(max(rho1[i], rho1next[i]))
+
+    # Capturing min and max in order to generate the normalized curve
+    if rho[i] > rhomax:
+        rhomax = rho[i]
+
+    if rho[i] < rhomin:
+        rhomin = rho[i]
+
+
+print('Eba')
+"""
 
 
 
