@@ -140,9 +140,20 @@ for i in range(len(theta)):
     if rho[i] < rhomin:
         rhomin = rho[i]
 
+# Generation of a normalised curve and camshaft
+rhonorm = []
+rhocam = np.zeros(shape=(len(d), len(theta)))
+
+for i in range(len(theta)):
+    rhonorm.append((rho[i]-rhomin)/(rhomax-rhomin))
+
+    for n in range(len(d)):
+        rhocam[n, i] = rmin + rhonorm[i] * d[n]
 
 print('Eba')
+
 """
 
+"""
 
 
