@@ -140,7 +140,7 @@ for i in range(len(theta)):
     if rho[i] < rhomin:
         rhomin = rho[i]
 
-# Generation of a normalised curve and camshaft
+# Generation of a normalized curve and camshaft
 rhonorm = []
 rhocam = np.zeros(shape=(len(d), len(theta)))
 
@@ -150,6 +150,26 @@ for i in range(len(theta)):
     for n in range(len(d)):
         rhocam[n, i] = rmin + rhonorm[i] * d[n]
 
+# Generation of the first derivative of the camshaft geometry to analize and
+# validate the design
+
+drho = np.zeros(len(rho))
+drhonorm = np.zeros(len(rho))
+drhocam = np.zeros(np.size(rhocam))
+
+a = rmin
+b = 1/dt
+
+for i in range(len(rho)-1):
+    drho[i] = (b * (rho[i+1] -rho[i]))
+    drhonorm[i] = (b * (rhonorm[i+1] - rhonorm[i]))
+    drhocam[i] = b * (rhocam.T.item(i+1)-rhocam.T.item(i)) + a
+
+drho[len(rho) - 1] = b * (rho[0]-rho[len(rho) - 1])
+drhonorm[len(rhonorm) - 1] = b * (rhonorm[0] - rhonorm[len(rhonorm) - 1])
+drhocam[np.size(rhocam) - 1] = b * (rhocam.item(0) - rhocam.item(np.size(rhocam) - 1)) + a
+
+print(drhocam[-1])
 print('Eba')
 
 """
