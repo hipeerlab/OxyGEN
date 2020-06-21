@@ -193,13 +193,21 @@ plt.plot(theta, rho2next, label='rho2next')
 #plt.plot(theta, rho, label='rho')
 plt.xlabel('Theta')
 plt.legend()
+#plt.show()
+
+
+# Normalized breathing cycle and first derivative 
+plt.figure()
+plt.plot(theta, drhonorm, label='drhonorm')
+plt.plot(theta, rhonorm, label='rhonorm')
+plt.xlabel('Theta')
+plt.legend()
+
+# Plot of a 1-cycle camshaft
+plt.figure()
+for i in range(len(d)):
+    plt.polar(theta, rhocam[i, :], label=f'Curve {i}')
+
+plt.legend()
 plt.show()
-
-
-print('eba')
-
-"""
-
-"""
-
 
