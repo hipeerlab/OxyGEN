@@ -170,26 +170,35 @@ drhonorm[len(rhonorm) - 1] = b * (rhonorm[0] - rhonorm[len(rhonorm) - 1])
 drhocam[np.size(rhocam) - 1] = b * (rhocam.item(0) - rhocam.item(np.size(rhocam) - 1)) + a
 
 # X and Y coordinates during two cycles (for 2-cycle camshaft plot)
-
 theta2 = np.concatenate((theta/2, (2*np.pi+theta)/2))
 
 rhocam2 = np.concatenate((rhocam, rhocam), axis=1)
 drhocam2 = np.concatenate((drho, drho))
 
 # X and Y coordinates during three cycles (for 3-cycle camshaft plot)
-
 theta3 = np.concatenate((theta/3, (2*np.pi+theta)/3, (4*np.pi+theta)/3))
 
 rhocam3 = np.concatenate((rhocam, rhocam, rhocam), axis=1)
 drhocam3 = np.concatenate((drho, drho, drho))
 
 
+# Breathing cycle interpolation by curves
+plt.figure()
+plt.plot(theta, psi1, label='psi1')
+plt.plot(theta, psi2, label='psi2')
+plt.plot(theta, rho1, label='rho1')
+plt.plot(theta, rho1next, label='rho1next')
+plt.plot(theta, rho2, label='rho2')
+plt.plot(theta, rho2next, label='rho2next')
+#plt.plot(theta, rho, label='rho')
+plt.xlabel('Theta')
+plt.legend()
+plt.show()
+
+
+print('eba')
 
 """
-theta3 = [theta/3, (2*pi+theta)/3, (4*pi+theta)/3];
-
-rhocam3 = [rhocam, rhocam, rhocam];
-drhocam3 = [drho, drho, drho];
 
 """
 
