@@ -1,5 +1,6 @@
 """
 Code to determine the Came profile 
+Dimensions are in "cm"
 """
 import numpy as np
 import matplotlib.pyplot as plt 
@@ -8,7 +9,7 @@ from scipy.stats import gamma
 
 # GEOMETRICAL PARAMETERS 
 l0 = 27.5   # Length from the bearing to the hinge 
-h0 = 6.5    # Length of the vertical wall which supports the finge
+h0 = 6.5    # Length of the vertical wall which supports the hinge
 hb = 4.0    # Length of the vertical support of the bearing 
 br = 1.1    # Bearing radius 
 
@@ -139,6 +140,14 @@ for i in range(len(theta)):
 
     if rho[i] < rhomin:
         rhomin = rho[i]
+
+# plt.plot(theta, rho1, label='shape = 3.1 | scale = 0.85')
+# plt.xlabel('Theta')
+# plt.ylim(0, 0.35)
+# plt.legend()
+# plt.show()
+
+
 
 # Generation of a normalized curve and camshaft
 rhonorm = []
